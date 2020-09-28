@@ -1,7 +1,4 @@
 package com.belajar.topic.service;
-
-
-
 //import com.belajar.topic.model.Topic;
 //import org.springframework.stereotype.Service;
 //
@@ -11,8 +8,16 @@ package com.belajar.topic.service;
 //import java.util.Arrays;
 //import java.util.List;
 
+//import org.springframework.stereotype.Service;
+//
 //@Service
 //public class TopicService {
+//    public String tes(){
+//        String uri = "http://jira/rest/api/2/issue";
+//        return uri;
+//    }
+//}
+
 
 //    private List<Topic> topics = new ArrayList<>(Arrays.asList(
 //            new Topic("spring", "Spring Framework", "Spring Framework Description"),

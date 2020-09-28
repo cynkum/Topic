@@ -1,6 +1,7 @@
 package com.belajar.topic.controller;
 
 import com.belajar.topic.TopicRepository;
+import com.belajar.topic.config.CobaConfig;
 import com.belajar.topic.config.PropertiesConfig;
 import com.belajar.topic.config.ValueConfig;
 import com.belajar.topic.model.Topic;
@@ -36,7 +37,7 @@ public class TopicController {
 
     @PostMapping("/add")
     @ApiOperation(value = "Add a data to topic")
-    public @ResponseBody String addNewUser (
+    public @ResponseBody String addNewTopic (
             @ApiParam(value = "Please fill the name of the topic", required = true) @RequestParam String name_topic,
             @ApiParam(value = "Please fill the topic's description", required = false) @RequestParam String description_topic,
             @ApiParam(value = "Please fill the year of the topic discovered", required = true) @RequestParam Integer year) {
@@ -57,7 +58,16 @@ public class TopicController {
     //@ConfigurationProperties
     @GetMapping("/properties")
     public String properties(){
-        return propertiesConfig.getHostName() + " -- " + propertiesConfig.getPort() + " -- " +propertiesConfig.getFrom();
+        return propertiesConfig.getHostName() + "\r\n" + propertiesConfig.getPort() + " -- " +propertiesConfig.getFrom();
+    }
+
+    @Autowired
+    CobaConfig cobaConfig;
+    @GetMapping("/coba")
+    public String coba(){
+        return cobaConfig.getJira().getId() + System.lineSeparator()
+                +cobaConfig.getJira().getIssue() + System.lineSeparator()
+                +cobaConfig.getJira().getSearch() + System.lineSeparator();
     }
 
     //@Value
@@ -71,6 +81,18 @@ public class TopicController {
         this.priority=priority.toLowerCase();
         return value + " -- " +listOfValues + " -- " +priority;
     }
+
+    @PutMapping("/{id}")
+            public String updateTopic(Integer id, String name, String description, Integer year){
+        Topic topic = topicRepository.findById(id).get();
+        topic.setName(name);
+        topic.setDescription(description);
+        topic.setYear(year);
+        topicRepository.save(topic);
+        return "Updated";
+
+    }
+
 
 //    @PutMapping("/{id}")
 //    public ResponseEntity<Topic> saveResource(@RequestBody Topic topic,
